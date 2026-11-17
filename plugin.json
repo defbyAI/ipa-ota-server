@@ -1,0 +1,22 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "ipa-ota-server",
+  "version": "0.1.0",
+  "description": "Publish an existing signed IPA and serve its installation page behind a trusted HTTPS endpoint.",
+  "author": {
+    "name": "zeroPL contributors"
+  },
+  "repository": "https://github.com/defbyAI/ipa-ota-server",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "IPA OTA Server",
+        "shortDescription": "Serve signed IPAs for remote iOS installation",
+        "defaultPrompt": [
+          "Use IPA OTA Server to publish my signed IPA behind an HTTPS reverse proxy."
+        ]
+      }
+    }
+  }
+}

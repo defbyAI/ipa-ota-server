@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Install {{.App.Title}}</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --page: #eef3f7;
+      --panel: #fff;
+      --ink: #162436;
+      --muted: #516176;
+      --border: #d8e0e8;
+      --accent: #125d55;
+      --accent-ink: #fff;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --page: #101821;
+        --panel: #17222e;
+        --ink: #f2f6fc;
+        --muted: #b7c5d6;
+        --border: #3f4e60;
+        --accent: #8be2ce;
+        --accent-ink: #142a25;
+      }
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    body {
+      margin: 0;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: 22px;
+      background: var(--page);
+      color: var(--ink);
+      font: 1rem/1.5 Inter, system-ui, sans-serif;
+    }
+    main {
+      width: min(100%, 30rem);
+      padding: clamp(22px, 7vw, 36px);
+      overflow-wrap: anywhere;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: var(--panel);
+    }
+    header { display: flex; align-items: center; gap: 16px; }
+    header img { flex-shrink: 0; border-radius: 14px; }
+    h1 { margin: 0; font-size: clamp(1.5rem, 5vw, 2rem); line-height: 1.15; }
+    .version, .note { color: var(--muted); font-size: .875rem; }
+    .version { margin: 5px 0 0; }
+    .actions { display: grid; gap: 10px; margin-top: 24px; }
+    .button {
+      display: grid;
+      place-items: center;
+      min-height: 48px;
+      padding: 10px 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--ink);
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
+    }
+    .primary { border-color: transparent; background: var(--accent); color: var(--accent-ink); }
+    a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+    .note { margin: 14px 0 0; }
+    .note a { color: inherit; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      {{if .Icon}}<img src="{{.Release}}{{.Icon}}" width="60" height="60" alt="">{{end}}
+      <div>
+        <h1>{{.App.Title}}</h1>
+        <p class="version">{{.App.Version}} · Build {{.App.Build}}</p>
+      </div>
+    </header>
+    <div class="actions">
+      <a class="button primary" id="install" data-manifest="{{.Release}}manifest.plist" hidden>Install on iPhone or iPad</a>
+      <a class="button" href="{{.Release}}app.ipa" download>Download IPA</a>
+    </div>
+    <p class="note" id="https-note">Open this page over HTTPS to install.</p>
+  </main>
+  <script>
+    const installButton = document.getElementById("install");
+    if (location.protocol === "https:") {
+      const manifest = new URL(installButton.dataset.manifest, location.href);
+      installButton.href = "itms-services://?action=download-manifest&url=" + encodeURIComponent(manifest.href);
+      installButton.hidden = false;
+      document.getElementById("https-note").hidden = true;
+    }
+  </script>
+</body>
+</html>

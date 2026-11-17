@@ -1,0 +1,4 @@
+interface:
+  display_name: "IPA OTA Server"
+  short_description: "Serve signed IPA builds for remote iOS installation"
+  default_prompt: "Use $ipa-ota-server to publish an existing signed IPA behind my HTTPS reverse proxy."

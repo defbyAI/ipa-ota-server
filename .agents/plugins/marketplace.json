@@ -1,0 +1,20 @@
+{
+  "name": "ipa-ota-server",
+  "interface": {
+    "displayName": "IPA OTA Server"
+  },
+  "plugins": [
+    {
+      "name": "ipa-ota-server",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}
